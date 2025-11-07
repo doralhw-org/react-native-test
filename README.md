@@ -152,36 +152,35 @@ Build a small mobile-oriented API that **proxies** Wikipedia Featured Content an
 
 ---
 
-## Scoring (300 points)
+## Scoring Breakdown (Total: 300 pts + 10 bonus)
 
-### Mobile App (100)
-- Code Quality & Architecture (25)
-- UX/UI & Accessibility (15)
-- Functionality vs. Core Stories (20)
-- Offline-first & Performance (20)
-- Tests (unit + basic Detox) (10)
-- Documentation (README + ADR) (10)
+| **Category**                          | **Criteria**                                                                                                  | **Points** |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------- |
+| **Mobile App (110 pts)**              | Code quality & architecture                                                                                   | 20         |
+|                                       | UX/UI polish                                                                                                  | 10         |
+|                                       | Accessibility (labels, Dynamic Type, contrast, basic VO/TalkBack)                                             | 10         |
+|                                       | Offline-first & data strategy (cache, SWR pattern, graceful offline states)                                   | 25         |
+|                                       | Performance (FlatList hygiene, image caching, perf budget doc)                                                | 15         |
+|                                       | Tests (unit + one Detox happy-path)                                                                           | 20         |
+|                                       | Runner docs (setup, scripts, troubleshooting)                                                                 | 10         |
+| **Backend API (110 pts)**             | Code quality & structure                                                                                      | 15         |
+|                                       | API design & validation                                                                                       | 15         |
+|                                       | Caching, versioning, and rate-limiting                                                                        | 20         |
+|                                       | Observability & health checks                                                                                 | 15         |
+|                                       | Security & configuration hygiene (.env.example, validation, no secrets)                                       | 10         |
+|                                       | Tests (unit + e2e with cache header assertions)                                                               | 25         |
+|                                       | Packaging & DX (Dockerfile, docker-compose, fast local run)                                                   | 10         |
+| **Leadership & Delivery (80 pts)**    | ADR quality (focus on offline strategy)                                                                       | 20         |
+|                                       | PR hygiene & commit discipline                                                                                | 15         |
+|                                       | Code-review critique (risk, tests, perf, a11y)                                                                | 15         |
+|                                       | Delivery plan realism (milestones, risks, cut lines)                                                          | 15         |
+|                                       | Cross-cutting DX (Makefile, CI checks, bootstrap speed)                                                       | 15         |
+| **Bonus (up to +10 pts)**             | Optional stretch goals (push notifications, Sentry, CI Detox, etc.) — unlocked only if each core section ≥70% | +10        |
 
-**Bonus (up to +10 within this bucket):** bookmarks, infinite day scrolling, deep links, RTL, feature flags.
+**Total:** 300 pts (+10 bonus)
 
-### Backend API (100)
-- Code Quality & Structure (20)
-- API Design & Validation (20)
-- Caching, Rate limiting, Versioning (20)
-- Observability & Health (15)
-- Tests (unit + e2e) (15)
-- Docs (Swagger + Runbook) (10)
 
-**Bonus (up to +10 within this bucket):** Redis cache, OpenTelemetry, image transformation pipeline.
-
-### Leadership & Delivery (100)
-- ADR quality (20)
-- PR hygiene & commit discipline (20)
-- Code review critique (20)
-- Delivery plan realism (20)
-- Developer Experience (DX): scripts, Makefile, `.env.example`, fast local setup (20)
-
->  Projects scoring **>260** usually demonstrate lead-level mastery.
+>  Projects scoring **>270** usually demonstrate lead-level mastery.
 
 ---
 
