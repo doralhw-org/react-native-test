@@ -1,219 +1,297 @@
-# Senior Mobile Team Lead — React Native + NestJS Challenge
+# Senior React Native Developer Challenge
 
-## What we’re assessing
+Welcome to our Senior React Native Developer Challenge, designed to comprehensively assess your technical expertise, architectural thinking, and leadership capabilities in mobile development. This challenge goes beyond basic coding to evaluate how you approach complex problems, make architectural decisions, lead technical initiatives, and deliver production-ready solutions. Our aim is to understand not only your technical skills but also how you think, communicate, and deliver as a senior engineer.
 
-- **Hands-on excellence in React Native**: offline-first UX, native integrations, performance, testing.
-- **Team lead skills**: architecture decisions, code review quality, delivery plan, PR hygiene, and documentation.
-- **Backend for mobile**: NestJS APIs optimized for devices (latency, payloads, caching, versioning, resilience).
+## Introduction
 
->  **Two lanes to succeed**
-> - **Core (must-have):** a polished vertical slice with clean code, tests, docs.
-> - **Stretch (nice-to-have):** advanced features that show seniority (observability, CI/CD, native modules, etc).
+This challenge involves building "WikiDaily", a production-minded mobile application that lets users explore Wikipedia Featured Content by date and language, with an offline-first experience and shareable cards. The project demonstrates three core competencies we value:
 
----
+- **Hands-on excellence in React Native**: offline-first UX, native integrations, performance optimization, and comprehensive testing.
+- **Team lead skills**: architecture decisions, code review quality, delivery planning, PR hygiene, and technical documentation.
+- **Backend for mobile**: NestJS APIs optimized for mobile devices including latency considerations, payload optimization, caching strategies, versioning, and resilience.
 
-## Product Brief
+The challenge emphasizes shipping a small but production-minded application with clean code, tests, and documentation. We provide core requirements (must-have features) and stretch goals (nice-to-have features that demonstrate seniority).
 
-Build **“WikiDaily”**, a mobile app that lets users explore Wikipedia Featured Content by date and language, with an **offline-first** experience and **shareable** cards. Ship a small but production-minded app.
+## Frontend
 
-### Core User Stories (Required)
+Build a mobile application using React Native with TypeScript that interacts with Wikipedia Featured Content and provides an exceptional user experience on both iOS and Android platforms.
 
-1. **Pick Date & Language**
-   - Platform-appropriate pickers (iOS/Android) for date and language.
-   - Fetch featured content for the selected day.
-   - Persist last choice.
+### Requirements
 
-2. **Feed of Cards**
-   - Scrollable list of “featured” items (title, thumbnail, short extract).
-   - Pull to refresh.
-   - Mark items as “viewed” (visible indicator).
-   - Tap to open a **Details** screen (more text, hero image if available).
+#### Date & Language Selection
+- Platform-appropriate pickers (iOS/Android) for date and language selection.
+- Fetch featured content for the selected day and language.
+- Persist the user's last selection across app sessions.
 
-3. **Share**
-   - Native share sheet from a card and from Details.
+#### Card-Based Feed
+- Scrollable list of featured items displaying title, thumbnail, and short extract.
+- Pull-to-refresh functionality.
+- Mark items as "viewed" with a visible indicator.
+- Tap to open a Details screen showing more text and hero image (if available).
+- Optimize for fast list rendering with approximately 100 items.
 
-4. **Offline-first**
-   - View previously fetched days **without network**.
-   - Graceful “you’re offline” states.
-   - Background refresh when the app regains connectivity (if feasible).
+#### Native Sharing
+- Integrate native share sheet from both card view and Details screen.
+- Support sharing via messaging apps, social media, etc.
 
-5. **Performance & UX polish**
-   - Image caching; avoid layout shift; fast list rendering for ~100 items.
-   - Support **Dark Mode** and **Dynamic Type** (font scaling).
+#### Offline-First Architecture
+- View previously fetched days without network connectivity.
+- Graceful "you're offline" states with appropriate user messaging.
+- Background refresh when the app regains connectivity (if feasible).
+- Implement robust caching strategy for seamless offline experience.
 
-### Bonus User Stories (Pick any)
+#### Performance & UX Polish
+- Image caching to avoid unnecessary network requests.
+- Prevent layout shift during image loading.
+- Support Dark Mode and Dynamic Type (font scaling).
+- Accessibility labels, proper hit slop, color contrast.
+- VoiceOver/TalkBack sanity checks.
 
-- **Bookmarks** (persisted).
-- **Infinite scroll by day** (as the user reaches the end, load previous day, etc).
-- **Responsive/adaptive** layouts (phones & small tablets, both orientations).
-- **Deep links** (e.g., `wikidaily://item/{id}` opens Details).
-- **Feature flags** (remotely flip “bookmarks” on/off — local mock OK).
+### Technical Stack & Architecture
 
----
+- **Framework**: React Native (TypeScript). You may use Expo or bare React Native. If using Expo, document where you'd need to eject for specific requirements.
+- **State Management**: React Query/TanStack Query or Redux Thunk (or equivalent) for network requests and caching.
+- **Data Persistence**: On-device persistence using SQLite/Drizzle/WatermelonDB/Realm for offline support.
+- **Navigation**: React Navigation with minimum two screens (Feed, Details).
+- **List Performance**: FlatList/SectionList with proper keys, windowSize, and getItemLayout where appropriate.
+- **Image Optimization**: Image caching using `react-native-fast-image` or Expo equivalents.
 
-## Mobile Requirements (React Native)
+### Testing Requirements
 
-- **Stack**: React Native (TypeScript). You may use Expo **or** bare RN. If Expo, note where you’d eject for specific needs.
-- **State & data**
-  - Use **React Query / TanStack Query** or **Redux Thunk** (or equivalent) for network + caching.
-  - Use on-device persistence (e.g., SQLite/Drizzle/WatermelonDB/Realm) for offline.
-  - Avoid global heavy state where unnecessary; keep boundaries clear.
-- **Navigation**: React Navigation with a minimum of two screens (Feed, Details). Deep links if you choose that bonus.
-- **Accessibility**: accessible labels, hit slop, color contrast, Dynamic Type, VoiceOver/TalkBack sanity checks.
-- **Testing**
-  - **Unit** (Jest + React Testing Library) for critical components and hooks.
-  - **E2E** (Detox) for at least: open app → load feed → open details → share (can be mocked).
-- **Performance**
-  - Use FlatList/SectionList correctly (keys, windowSize, getItemLayout where appropriate).
-  - Image caching (e.g., `react-native-fast-image` or Expo equivalents).
-  - Add a simple **perf budget** in the README (e.g., TTI target on mid-range Android).
+- **Unit Tests**: Jest + React Testing Library for critical components and hooks.
+- **E2E Tests**: Detox for at least one happy path: open app → load feed → open details → share (can be mocked).
+- Include a simple performance budget in the README (e.g., TTI target on mid-range Android).
 
-> ✅ **Deliverable for leadership**: include **one ADR** (Architecture Decision Record) that explains your **offline strategy** and **state choice**, with considered alternatives.
+### Bonus Features (Frontend)
 
----
+- **Bookmarks**: Persist user bookmarks across sessions.
+- **Infinite Scroll**: Load previous day's content as user reaches the end of the feed.
+- **Responsive Layouts**: Support phones and small tablets in both orientations.
+- **Deep Links**: Implement deep linking (e.g., `wikidaily://item/{id}` opens Details).
+- **Feature Flags**: Remotely toggle features on/off (local mock is acceptable).
 
-## Backend Requirements (NestJS)
+## Backend
 
-Build a small mobile-oriented API that **proxies** Wikipedia Featured Content and optionally **translates** fields via **LibreTranslate** (self-hosted or community instance; no paid keys).
+Build a mobile-oriented Node.js API using NestJS that proxies Wikipedia Featured Content and optionally provides translation services. The API should be optimized for mobile consumption with proper caching, validation, and error handling.
 
-### Endpoints
+### Requirements
 
-- `GET /v1/feed`
-  - Proxies Featured Content.
-  - Validates query (date, language, etc).
-  - **Mobile optimization**: only return fields the app needs; optionally compress/transform images (you can simulate or document).
-  - Cache responses (HTTP cache headers + server cache layer).
-  - Structured error format.
+#### Core Endpoints
 
-- `GET /v1/feed/translate/:lang`
-  - Same as `/v1/feed`, but translate `title` and `extract` into `:lang`.
-  - Validate supported languages.
+**GET /v1/feed**
+- Proxy Wikipedia Featured Content API.
+- Validate query parameters (date, language, etc.).
+- Mobile optimization: return only fields the app needs.
+- Optionally compress/transform images (can be simulated or documented).
+- Implement caching with HTTP cache headers and server-side cache layer.
+- Return structured error format for all failures.
 
-### Platform features
+**GET /v1/feed/translate/:lang**
+- Same functionality as `/v1/feed` but translates `title` and `extract` into target language.
+- Validate supported languages against LibreTranslate API.
+- Use LibreTranslate API (self-hosted or community instance; no paid keys).
 
-- **Versioning** (`/v1/...`) with an example of how `/v2` could evolve (can be stub + doc).
-- **Rate limiting** (e.g., per IP).
-- **Caching** (in-memory or Redis; document TTL choices).
+#### Architecture & Best Practices
+
+- **Versioning**: Implement API versioning (`/v1/...`) with documentation on how `/v2` could evolve.
+- **Rate Limiting**: Per-IP rate limiting to prevent abuse.
+- **Caching**: In-memory or Redis caching with documented TTL choices.
 - **Observability**:
-  - Health check (`/healthz`).
-  - Basic metrics (Prometheus or simple counters) **or** OpenTelemetry traces (bonus).
-- **Docs**: Swagger
-- **Tests**: unit tests for services/pipes/guards and at least one e2e test (supertest).
-- **Packaging**: Dockerfile + `docker-compose.yml` for local run (Nest + optional Redis).
+  - Health check endpoint (`/healthz`).
+  - Basic metrics (Prometheus or simple counters) or OpenTelemetry traces (bonus).
+- **Documentation**: Swagger/OpenAPI documentation.
+- **Security**: Environment variable validation, no secrets in code, proper `.env.example`.
 
-> ✅ **Deliverable for leadership**: include a **Runbook** (operability notes: env vars, health checks, rate limit rationale, cache TTL, how to roll keys).
+### Testing Requirements
+
+- **Unit Tests**: Services, pipes, guards coverage.
+- **E2E Tests**: At least one e2e test using supertest with cache header assertions.
+
+### Packaging
+
+- **Docker**: Dockerfile and `docker-compose.yml` for local development.
+- Support running NestJS API with optional Redis.
+- Fast local setup experience (goal: running in under 10 minutes).
+
+### Bonus Features (Backend)
+
+- **Push Notifications**: Simple topic broadcast system for "New featured content available" (can be simulated).
+- **Advanced Observability**: Sentry or similar crash reporting, log correlation IDs between app and API.
+- **Advanced Caching**: Redis implementation with detailed TTL strategy.
+
+## Stretch Goals
+
+These advanced features demonstrate senior-level capabilities and are optional but highly valued:
+
+### Mobile Native Integrations
+
+- **Push Notifications**: Backend topic broadcast with frontend handling (Expo Notifications or FCM/APNs).
+- **Background Tasks**: Background fetch for "today's" content with scheduling, backoff, and OS constraint respect.
+- **Native Device Features**: Biometric lock for Bookmarks screen, or save images to media library with proper permissions.
+
+### DevOps & Production Readiness
+
+- **Observability End-to-End**: Sentry (or similar) crash reporting wired to both app and API with log correlation IDs.
+- **CI/CD Pipeline**: GitHub Actions for type-check, lint, unit tests, e2e tests (API), optional Detox, and build artifacts.
+- **EAS Build**: If using Expo, set up EAS build profile and document OTA update strategy.
+- **App Store Ready**: Build configs, app icons, splash screens, release notes template, and store requirements checklist.
+
+### Native Module Development
+
+- Create a custom native module that extends React Native capabilities beyond JavaScript bridge.
+
+## Leadership & Delivery Artifacts
+
+These documents demonstrate your senior-level thinking and communication skills:
+
+### Architecture Decision Record (ADR)
+
+Create an ADR titled "Offline-first strategy for WikiDaily" that includes:
+- Alternatives considered (e.g., React Query only vs. normalized cache vs. SQLite).
+- Chosen approach with detailed rationale.
+- Trade-offs and future evolution considerations.
+
+### PR Workflow
+
+Submit your work as at least 2 PRs into your own repository:
+- **PR #1**: "Vertical slice: feed + API integration"
+- **PR #2**: "Offline + tests + polish"
+
+Use meaningful PR descriptions, checklists, and small atomic commits that tell a story.
+
+### Code Review Exercise
+
+Create a `CODE-REVIEW.md` document where you critique one of your own PRs as if reviewing a teammate's work. Call out:
+- Potential risks
+- Test coverage gaps
+- Naming and code organization
+- Performance considerations
+- Accessibility concerns
+- Maintainability issues
+
+### Delivery Plan
+
+Create a `DELIVERY-PLAN.md` document: "From Zero to First Release in 2 weeks with a 2-person team"
+- Define clear milestones
+- Identify risks and mitigation strategies
+- Establish cut-lines (what features to drop first under time pressure)
+
+### Runbook
+
+Create a `RUNBOOK.md` for backend operability that documents:
+- Environment variables and configuration
+- Health check endpoints and expected responses
+- Rate limiting rationale and configuration
+- Cache TTL decisions and reasoning
+- How to manage API keys and secrets in production
+
+## Evaluation Criteria
+
+The project will be scored over **300 total points** (+10 bonus), distributed across three main categories. Projects scoring over 270 points typically demonstrate lead-level mastery.
+
+### Mobile App (110 points)
+
+| Criteria | Points |
+|----------|--------|
+| Code quality & architecture | 20 |
+| UX/UI polish | 10 |
+| Accessibility (labels, Dynamic Type, contrast, VoiceOver/TalkBack) | 10 |
+| Offline-first & data strategy (cache, SWR pattern, graceful offline states) | 25 |
+| Performance (FlatList hygiene, image caching, perf budget documentation) | 15 |
+| Tests (unit + one Detox happy-path) | 20 |
+| Runner docs (setup, scripts, troubleshooting) | 10 |
+
+### Backend API (110 points)
+
+| Criteria | Points |
+|----------|--------|
+| Code quality & structure | 15 |
+| API design & validation | 15 |
+| Caching, versioning, and rate-limiting | 20 |
+| Observability & health checks | 15 |
+| Security & configuration hygiene (.env.example, validation, no secrets) | 10 |
+| Tests (unit + e2e with cache header assertions) | 25 |
+| Packaging & DX (Dockerfile, docker-compose, fast local run) | 10 |
+
+### Leadership & Delivery (80 points)
+
+| Criteria | Points |
+|----------|--------|
+| ADR quality (focus on offline strategy) | 20 |
+| PR hygiene & commit discipline | 15 |
+| Code-review critique (risk assessment, tests, performance, accessibility) | 15 |
+| Delivery plan realism (milestones, risks, cut lines) | 15 |
+| Cross-cutting DX (Makefile, CI checks, bootstrap speed) | 15 |
+
+### Bonus Points (up to +10)
+
+Optional stretch goals unlock bonus points only if each core section scores ≥70%:
+- Push notifications implementation
+- Sentry integration
+- CI pipeline with Detox
+- Native module development
+- Complete app store packages
+
+**Total: 300 points (+10 bonus)**
+
+## Quality Standards
+
+All submissions must meet these baseline standards:
+
+- **TypeScript**: Strict mode enabled everywhere.
+- **Code Style**: ESLint + Prettier configs committed to repository.
+- **Environment Management**: `.env.example` with safe defaults; no secrets in code.
+- **Mobile Optimization**: Demonstrate payload trimming/reshaping for mobile (fields, pagination, TTL).
+- **Error Handling**: User-friendly messages on mobile; structured responses on API.
+- **Accessibility**: Include a checklist of what you verified (VoiceOver, Dynamic Type, color contrast, etc.).
+
+## Submission Guidelines
+
+### Repository Requirements
+
+- Upload the project to a **public GitHub repository** and share the URL.
+- Structure as monorepo using `apps/` or `packages/` if desired (Turborepo/Nx optional).
+
+### Documentation
+
+Include the following files in your repository:
+
+- **README.md**: Setup instructions for both mobile and API, scripts, assumptions, and project overview.
+- **ADR.md**: Architecture Decision Record for offline strategy.
+- **CODE-REVIEW.md**: Self-critique of one of your PRs.
+- **DELIVERY-PLAN.md**: Two-week delivery plan with milestones and risks.
+- **RUNBOOK.md**: Backend operational documentation.
+
+### Demos
+
+- Include screenshots or a short video demonstrating the app on both iOS and Android (simulators are acceptable).
+- Show key user flows: date selection, content loading, offline behavior, and sharing.
+
+### Submission Timing
+
+- Submit whatever you accomplished by the deadline specified in the email.
+- **Important**: Do not introduce any commits after the submission timestamp you provide in your PR description.
+- Late submissions will be immediately disqualified.
+
+### Privacy Note
+
+To keep your submission private:
+- **DO NOT** fork this repository
+- **DO NOT** use this file content verbatim
+- **DO NOT** mention the company name in your README
+
+## Success Criteria
+
+We evaluate submissions based on these key questions:
+
+- **Launch experience**: Does the app provide immediate clarity with fast list rendering and no jank?
+- **Offline resilience**: Toggle Airplane Mode—is the app still useful? Does it recover gracefully?
+- **Responsiveness**: Change date & language—is the response quick with appropriate caching?
+- **Native integration**: Does sharing work correctly with the native share sheet?
+- **API design**: Does the API return just enough data with proper caching headers and consistent errors?
+- **Test quality**: Do tests actually catch regressions? (Try breaking something to verify a test fails.)
+- **Developer experience**: Can someone run the project in under 10 minutes?
 
 ---
 
-## Stretch Goals (Advanced)
-
-- **Push notifications**  
-  - Backend: simple topic broadcast “New featured content available” (simulate).
-  - App: receive & route to the selected day (Expo Notifications or FCM/APNs if bare).
-
-- **Background tasks & sync**  
-  - Background fetch for “today’s” content; schedule + backoff; respect OS constraints.
-
-- **Native device features**  
-  - Biometric lock for Bookmarks screen; or save-for-offline images to media library (ask permission).
-
-- **Observability end-to-end**  
-  - Sentry (or similar) crash reporting wired to both app and API.
-  - Log correlation ID from app → API.
-
-- **CI/CD**
-  - GitHub Actions: type-check, lint, unit tests, e2e (API), Detox (optional), build artifacts.
-  - If Expo: set up EAS build profile and document OTA update strategy.
-
-- **App Store–ready**
-  - Build configs, app icons, splash; release notes template; checklist of store requirements.
-
----
-
-## Team Lead Dimensions (Required Artifacts)
-
-1. **Architecture Decision Record (ADR)**  
-   - Title: “Offline-first strategy for WikiDaily”.  
-   - Alternatives considered (e.g., React Query only vs. normalized cache vs. SQLite).  
-   - Chosen approach + trade-offs + future evolution.
-
-2. **PR Workflow**  
-   - Submit your work as **at least 2 PRs** into your own repo:
-     - PR #1: “Vertical slice: feed + API integration”.
-     - PR #2: “Offline + tests + polish”.
-   - Use meaningful descriptions, checklists, and small commits.
-
-3. **Code Review Exercise**  
-   - Add a `code-review.md` where you critique **one** of your own PRs as if you were reviewing a teammate’s: call out risks, test gaps, naming, performance, a11y, and maintainability.
-
-4. **Delivery Plan**  
-   - `delivery-plan.md`: **From Zero to First Release** in 2 weeks with a 2-person team.  
-   - Milestones, risks, and cut-lines (what you’d drop first).
-
----
-
-## Scoring Breakdown (Total: 300 pts + 10 bonus)
-
-| **Category**                          | **Criteria**                                                                                                  | **Points** |
-| ------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------- |
-| **Mobile App (110 pts)**              | Code quality & architecture                                                                                   | 20         |
-|                                       | UX/UI polish                                                                                                  | 10         |
-|                                       | Accessibility (labels, Dynamic Type, contrast, basic VO/TalkBack)                                             | 10         |
-|                                       | Offline-first & data strategy (cache, SWR pattern, graceful offline states)                                   | 25         |
-|                                       | Performance (FlatList hygiene, image caching, perf budget doc)                                                | 15         |
-|                                       | Tests (unit + one Detox happy-path)                                                                           | 20         |
-|                                       | Runner docs (setup, scripts, troubleshooting)                                                                 | 10         |
-| **Backend API (110 pts)**             | Code quality & structure                                                                                      | 15         |
-|                                       | API design & validation                                                                                       | 15         |
-|                                       | Caching, versioning, and rate-limiting                                                                        | 20         |
-|                                       | Observability & health checks                                                                                 | 15         |
-|                                       | Security & configuration hygiene (.env.example, validation, no secrets)                                       | 10         |
-|                                       | Tests (unit + e2e with cache header assertions)                                                               | 25         |
-|                                       | Packaging & DX (Dockerfile, docker-compose, fast local run)                                                   | 10         |
-| **Leadership & Delivery (80 pts)**    | ADR quality (focus on offline strategy)                                                                       | 20         |
-|                                       | PR hygiene & commit discipline                                                                                | 15         |
-|                                       | Code-review critique (risk, tests, perf, a11y)                                                                | 15         |
-|                                       | Delivery plan realism (milestones, risks, cut lines)                                                          | 15         |
-|                                       | Cross-cutting DX (Makefile, CI checks, bootstrap speed)                                                       | 15         |
-| **Bonus (up to +10 pts)**             | Optional stretch goals (push notifications, Sentry, CI Detox, etc.) — unlocked only if each core section ≥70% | +10        |
-
-**Total:** 300 pts (+10 bonus)
-
-
->  Projects scoring **>270** usually demonstrate lead-level mastery.
-
----
-
-## Technical Guardrails & Tips
-
-- **TypeScript everywhere** (strict mode on).
-- **Linting/formatting**: ESLint + Prettier configs committed.
-- **Env management**: `.env.example` + safe defaults; no secrets in code.
-- **Mobile payload**: prove you trimmed/reshaped responses for the app (fields, pagination, TTL).
-- **Error handling**: user-friendly on mobile; structured on API.
-- **Accessibility**: include a short checklist of what you verified.
-
----
-
-## Submission
-
-- Public GitHub repository URL.
-- Include:
-  - `README.md` with setup (mobile + API), scripts, and assumptions.
-  - `apps/` or `packages/` structure if monorepo (optional via Turborepo/Nx).
-  - Screenshots or short video of iOS + Android (simulators are fine).
-  - `ADR`, `code-review.md`, `delivery-plan.md`, and `RUNBOOK.md`.
-- Timeboxing: submit **whatever you accomplished** by the deadline. No commits after the timestamp you share in the PR description.
-
-
----
-
-## Evaluation Cheatsheet (what reviewers will look for)
-
-- Launch app → immediate clarity, fast list, no jank.
-- Toggle Airplane Mode → still useful; recover gracefully.
-- Change date & language → quick response, cached where possible.
-- Share from a card → native share opens correctly.
-- API returns **just enough** data, with caching headers and consistent errors.
-- Tests actually catch regressions (break one thing to see a test fail).
-- Docs make it easy to run in <10 minutes.
+Good luck! We're excited to see your approach to building production-ready mobile applications. Remember, we value quality over quantity—a well-executed core implementation is better than incomplete stretch goals.
